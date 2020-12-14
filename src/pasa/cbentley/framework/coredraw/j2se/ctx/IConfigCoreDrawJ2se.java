@@ -8,4 +8,10 @@ import pasa.cbentley.framework.coredraw.src4.ctx.IConfigCoreDraw;
 
 public interface IConfigCoreDrawJ2se extends IConfigCoreDraw {
 
+   public String getFontMonospace();
+
+   public String getFontSystem();
+
+   public String getFontProportional();
+
 }

@@ -20,24 +20,25 @@ public abstract class FontJ2SE extends FontAbstract {
 
    /**
     * Create a font object
-    * @param cuic
+    * @param cdc
     * @param face uses the default font for this face type
     * @param style
     * @param size
     */
-   public FontJ2SE(CoreDrawJ2seCtx cuic, int face, int style, int size) {
-      super(cuic);
-      this.drwj2sec = cuic;
+   public FontJ2SE(CoreDrawJ2seCtx cdc, int face, int style, int size) {
+      super(cdc);
+      this.drwj2sec = cdc;
       this.face = face;
       this.style = style;
       this.size = size;
 
+      FontCustomizerJ2SE fc = cdc.getFontCustomizerJ2SE();
       if (face == FACE_MONOSPACE) {
-         fontName = cuic.getDefaultFontNameMono();
+         fontName = fc.getDefaultFontNameMono();
       } else if (face == FACE_PROPORTIONAL) {
-         fontName = cuic.getDefaultFontNameProportional();
+         fontName = fc.getDefaultFontNameProportional();
       } else {
-         fontName = cuic.getDefaultFontNameSystem();
+         fontName = fc.getDefaultFontNameSystem();
       }
 
       points = cac.getFontFactory().getFontPoint(size);
@@ -53,7 +54,7 @@ public abstract class FontJ2SE extends FontAbstract {
 
    //#mdebug
    public void toString(Dctx dc) {
-      dc.root(this, FontJ2SE.class, "@line5");
+      dc.root(this, FontJ2SE.class, "@line57");
       toStringPrivate(dc);
       super.toString(dc.sup());
       

@@ -5,13 +5,14 @@
 package pasa.cbentley.framework.coredraw.j2se.engine;
 
 import java.awt.GraphicsEnvironment;
+import java.io.InputStream;
 
 import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.framework.coredraw.j2se.ctx.CoreDrawJ2seCtx;
 import pasa.cbentley.framework.coredraw.src4.engine.FontFactoryAbstract;
 
-public abstract class FontFactoryJ2SE extends FontFactoryAbstract  {
+public abstract class FontFactoryJ2SE extends FontFactoryAbstract {
 
    public FontFactoryJ2SE(CoreDrawJ2seCtx jcac) {
       super(jcac);
@@ -23,10 +24,15 @@ public abstract class FontFactoryJ2SE extends FontFactoryAbstract  {
       return fonts;
    }
 
+   public String[] getFontFamilies() {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+
    public int[] getFontPoints() {
       return fontPoints;
    }
-
 
    //#mdebug
    public void toString(Dctx dc) {
@@ -36,7 +42,7 @@ public abstract class FontFactoryJ2SE extends FontFactoryAbstract  {
    }
 
    private void toStringPrivate(Dctx dc) {
-      
+
    }
 
    public void toString1Line(Dctx dc) {
@@ -46,6 +52,5 @@ public abstract class FontFactoryJ2SE extends FontFactoryAbstract  {
    }
 
    //#enddebug
-   
 
 }

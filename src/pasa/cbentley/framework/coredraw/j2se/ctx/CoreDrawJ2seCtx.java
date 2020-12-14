@@ -4,72 +4,64 @@
  */
 package pasa.cbentley.framework.coredraw.j2se.ctx;
 
+import java.awt.Font;
+import java.io.InputStream;
+
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.byteobjects.src4.ctx.BOCtx;
 import pasa.cbentley.byteobjects.src4.ctx.IConfigBO;
 import pasa.cbentley.core.src4.logging.Dctx;
-import pasa.cbentley.core.src4.logging.IDLog;
+import pasa.cbentley.framework.coredraw.j2se.engine.FontCustomizerJ2SE;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
-import pasa.cbentley.framework.coredraw.src4.ctx.IConfigCoreDraw;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 
+/**
+ * Java SE defines the following five logical font families:
+ * 
+ * <li>{@link Font#DIALOG}
+ * <li>{@link Font#DIALOG_INPUT}
+ * <li>{@link Font#MONOSPACED}
+ * <li>{@link Font#SERIF}
+ * <li>{@link Font#SANS_SERIF}
+ * 
+ * Compared to the 3 from {@link ITechFont}
+ * <li> {@link ITechFont#FACE_MONOSPACE}
+ * <li> {@link ITechFont#FACE_PROPORTIONAL}
+ * <li> {@link ITechFont#FACE_SYSTEM}
+ * 
+ * @author Charles Bentley
+ *
+ */
 public abstract class CoreDrawJ2seCtx extends CoreDrawCtx {
 
-   private String defaultFontNameMono;
+   private final IConfigCoreDrawJ2se configDrawJ2se;
 
-   private String defaultFontNameProportional;
-
-   private String defaultFontNameSystem;
-
-   public CoreDrawJ2seCtx(IConfigCoreDraw configDraw, BOCtx boc) {
+   public CoreDrawJ2seCtx(IConfigCoreDrawJ2se configDraw, BOCtx boc) {
       super(configDraw, boc);
+      this.configDrawJ2se = configDraw;
    }
 
-   public String getDefaultFontNameMono() {
-      if (defaultFontNameMono == null) {
-         //use hardcoded default
-         defaultFontNameMono = getDefaultFontNameMonoSub();
-      }
-      return defaultFontNameMono;
+   public int getFeatureInt(int featureID) {
+      return 0;
    }
 
-   protected void matchConfig(IConfigBO config, ByteObject settings) {
-      super.matchConfig(config, settings);
+   public IConfigCoreDrawJ2se getConfigCoreDrawJ2se() {
+      return configDrawJ2se;
+   }
+   public abstract FontCustomizerJ2SE getFontCustomizerJ2SE();
+
+   public Object getFeatureObject(int featureID) {
+      return null;
    }
 
-   protected abstract String getDefaultFontNameMonoSub();
-
-   /**
-    * 
-    * @return
-    */
-   public String getDefaultFontNameProportional() {
-      if (defaultFontNameMono == null) {
-         //use hardcoded default
-         defaultFontNameMono = getDefaultFontNamePropSub();
-      }
-      return defaultFontNameProportional;
-   }
-
-   protected abstract String getDefaultFontNamePropSub();
-
-   public String getDefaultFontNameSystem() {
-      if (defaultFontNameMono == null) {
-         //use hardcoded default
-         defaultFontNameMono = getDefaultFontNameSystemSub();
-      }
-      return defaultFontNameSystem;
-   }
-
-   protected abstract String getDefaultFontNameSystemSub();
-
-   public boolean hasFeatureSupport(int supportID) {
-      //#debug
-      toDLog().pFlow("supportID=" + supportID + " ", this, CoreDrawJ2seCtx.class, "hasFeatureSupport", LVL_05_FINE, true);
-
-      switch (supportID) {
+   public boolean featureEnable(int featureID, boolean b) {
+      switch (featureID) {
          case SUP_ID_06_CUSTOM_FONTS:
+            //can we disable those?
             return true;
          case SUP_ID_07_IMAGE_SCALING:
+            return true;
+         case SUP_ID_10_TRANSPARENT_BACKGROUND:
             return true;
          default:
             break;
@@ -77,17 +69,38 @@ public abstract class CoreDrawJ2seCtx extends CoreDrawCtx {
       return false;
    }
 
-   public void setDefaultFontNameMono(String defaultFontNameMono) {
-      //validates the font name for the system?
-      this.defaultFontNameMono = defaultFontNameMono;
+   public boolean isFeatureEnabled(int featureID) {
+      switch (featureID) {
+         case SUP_ID_06_CUSTOM_FONTS:
+            return true;
+         case SUP_ID_07_IMAGE_SCALING:
+            return true;
+         case SUP_ID_10_TRANSPARENT_BACKGROUND:
+            return true;
+         default:
+            break;
+      }
+      return false;
    }
 
-   public void setDefaultFontNameProportional(String defaultFontNameProportional) {
-      this.defaultFontNameProportional = defaultFontNameProportional;
+   public boolean hasFeatureSupport(int featureID) {
+      //#debug
+      toDLog().pFlow("featureID=" + featureID + " ", this, CoreDrawJ2seCtx.class, "hasFeatureSupport", LVL_05_FINE, true);
+      switch (featureID) {
+         case SUP_ID_06_CUSTOM_FONTS:
+            return true;
+         case SUP_ID_07_IMAGE_SCALING:
+            return true;
+         case SUP_ID_10_TRANSPARENT_BACKGROUND:
+            return true;
+         default:
+            break;
+      }
+      return false;
    }
 
-   public void setDefaultFontNameSystem(String defaultFontNameSystem) {
-      this.defaultFontNameSystem = defaultFontNameSystem;
+   protected void matchConfig(IConfigBO config, ByteObject settings) {
+      super.matchConfig(config, settings);
    }
 
    //#mdebug
@@ -95,13 +108,6 @@ public abstract class CoreDrawJ2seCtx extends CoreDrawCtx {
       dc.root(this, CoreDrawJ2seCtx.class);
       toStringPrivate(dc);
       super.toString(dc.sup());
-      
-      dc.appendVarWithSpace("defaultFontNameMono", defaultFontNameMono);
-      dc.appendVarWithSpace("defaultFontNameProportional", defaultFontNameProportional);
-      dc.appendVarWithSpace("defaultFontNameProportional", defaultFontNameProportional);
-   }
-
-   private void toStringPrivate(Dctx dc) {
 
    }
 
@@ -109,6 +115,10 @@ public abstract class CoreDrawJ2seCtx extends CoreDrawCtx {
       dc.root1Line(this, CoreDrawJ2seCtx.class);
       toStringPrivate(dc);
       super.toString1Line(dc.sup1Line());
+   }
+
+   private void toStringPrivate(Dctx dc) {
+
    }
 
    //#enddebug
