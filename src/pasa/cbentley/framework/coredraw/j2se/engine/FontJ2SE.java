@@ -7,6 +7,7 @@ package pasa.cbentley.framework.coredraw.j2se.engine;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.framework.coredraw.j2se.ctx.CoreDrawJ2seCtx;
 import pasa.cbentley.framework.coredraw.src4.engine.FontAbstract;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 
 public abstract class FontJ2SE extends FontAbstract {
 
@@ -45,6 +46,13 @@ public abstract class FontJ2SE extends FontAbstract {
       points += cac.getFontFactory().getFontPointExtraShift();
    }
 
+   public boolean isMonospace() {
+      if (face == ITechFont.FACE_MONOSPACE) {
+         return true;
+      }
+      return stringWidth("m") == stringWidth("i");
+   }
+
    public int getWidthWeigh() {
       if (fontWidth != 0) {
          fontWidth = stringWidth("m");
@@ -57,23 +65,22 @@ public abstract class FontJ2SE extends FontAbstract {
       dc.root(this, FontJ2SE.class, "@line57");
       toStringPrivate(dc);
       super.toString(dc.sup());
-      
 
-      dc.appendVarWithNewLine("getHeight()", getHeight());
+      dc.appendVarWithNewLine("getHeight", getHeight());
       dc.appendVarWithSpace("getWidthWeigh", getWidthWeigh());
       dc.appendVarWithSpace("fontWidth", fontWidth);
 
       dc.nl();
       dc.append("Width of chars : ");
-      dc.appendVarWithSpace("space", charWidth(' '));
       dc.appendVarWithSpace("m", charWidth('m'));
       dc.appendVarWithSpace("i", charWidth('i'));
       dc.appendVarWithSpace("_", charWidth('_'));
-      
+      dc.appendVarWithSpace("|", charWidth('|'));
+
       dc.nl();
       dc.append("Width of strings : ");
-      dc.appendVarWithSpace("mi", stringWidth("mi"));
-      dc.appendVarWithSpace("m i", stringWidth("m i"));
+      dc.appendVarWithSpace("mi|", stringWidth("mi|"));
+      dc.appendVarWithSpace("str_i", stringWidth("str_i"));
    }
 
    private void toStringPrivate(Dctx dc) {

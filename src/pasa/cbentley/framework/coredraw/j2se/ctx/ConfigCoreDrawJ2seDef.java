@@ -23,7 +23,7 @@ public class ConfigCoreDrawJ2seDef extends ConfigCoreDrawDef implements IConfigC
    public ConfigCoreDrawJ2seDef(UCtx uc) {
       super(uc);
 
-      fontPoints = new int[SIZE_X_NUM];
+      fontPoints = new int[ITechFont.SIZE_X_NUM];
       fontPoints[ITechFont.SIZE_1_TINY] = 8;
       fontPoints[ITechFont.SIZE_2_SMALL] = 10;
       fontPoints[ITechFont.SIZE_3_MEDIUM] = 12;
