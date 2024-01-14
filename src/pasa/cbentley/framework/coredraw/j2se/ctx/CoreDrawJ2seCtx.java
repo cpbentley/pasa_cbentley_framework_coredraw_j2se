@@ -48,6 +48,11 @@ public abstract class CoreDrawJ2seCtx extends CoreDrawCtx {
    public IConfigCoreDrawJ2se getConfigCoreDrawJ2se() {
       return configDrawJ2se;
    }
+   
+   /**
+    * Returns the {@link FontCustomizerJ2SE} that is set
+    * @return {@link FontCustomizerJ2SE}
+    */
    public abstract FontCustomizerJ2SE getFontCustomizerJ2SE();
 
    public Object getFeatureObject(int featureID) {
@@ -108,6 +113,8 @@ public abstract class CoreDrawJ2seCtx extends CoreDrawCtx {
       dc.root(this, CoreDrawJ2seCtx.class);
       toStringPrivate(dc);
       super.toString(dc.sup());
+      
+      dc.nlLvl(configDrawJ2se, "configDrawJ2se");
 
    }
 

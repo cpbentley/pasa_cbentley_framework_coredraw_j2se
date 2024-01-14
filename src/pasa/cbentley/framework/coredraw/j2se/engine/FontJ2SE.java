@@ -11,13 +11,18 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 
 public abstract class FontJ2SE extends FontAbstract {
 
-   protected String                fontName;
+   protected String                fontNameInit;
 
    protected int                   points;
 
    protected int                   fontWidth = 0;
 
    protected final CoreDrawJ2seCtx drwj2sec;
+
+   public FontJ2SE(CoreDrawJ2seCtx cdc) {
+      super(cdc);
+      this.drwj2sec = cdc;
+   }
 
    /**
     * Create a font object
@@ -33,13 +38,17 @@ public abstract class FontJ2SE extends FontAbstract {
       this.style = style;
       this.size = size;
 
+      //get the font from the customizer or by the default config
       FontCustomizerJ2SE fc = cdc.getFontCustomizerJ2SE();
+
       if (face == FACE_MONOSPACE) {
-         fontName = fc.getDefaultFontNameMono();
+         fontNameInit = fc.getDefaultFontNameMono();
       } else if (face == FACE_PROPORTIONAL) {
-         fontName = fc.getDefaultFontNameProportional();
+         fontNameInit = fc.getDefaultFontNameProportional();
       } else {
-         fontName = fc.getDefaultFontNameSystem();
+         String def = fc.getDefaultFontNameSystem();
+         //custom font point that was set
+         fontNameInit = cac.getFontFactory().getFontFaceFromID(face, def);
       }
 
       points = cac.getFontFactory().getFontPoint(size);
@@ -84,7 +93,7 @@ public abstract class FontJ2SE extends FontAbstract {
    }
 
    private void toStringPrivate(Dctx dc) {
-      dc.appendVarWithSpace("fontName", fontName);
+      dc.appendVarWithSpace("fontNameInit", fontNameInit);
       dc.appendVarWithSpace("points", points);
    }
 

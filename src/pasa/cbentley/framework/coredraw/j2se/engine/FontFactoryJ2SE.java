@@ -4,10 +4,9 @@
  */
 package pasa.cbentley.framework.coredraw.j2se.engine;
 
+import java.awt.Font;
 import java.awt.GraphicsEnvironment;
-import java.io.InputStream;
 
-import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.framework.coredraw.j2se.ctx.CoreDrawJ2seCtx;
 import pasa.cbentley.framework.coredraw.src4.engine.FontFactoryAbstract;
@@ -20,15 +19,19 @@ public abstract class FontFactoryJ2SE extends FontFactoryAbstract {
    }
 
    public String[] getFontNames() {
-      String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+      Font[] allFonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
+      String fonts[] = new String[allFonts.length];
+      for (int i = 0; i < fonts.length; i++) {
+         fonts[i] = allFonts[i].getFamily() + " : "+ allFonts[i].getFontName();
+      }
       return fonts;
    }
 
-   public String[] getFontFamilies() {
-      // TODO Auto-generated method stub
-      return null;
-   }
 
+   public String[] getFontFamilies() {
+      String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+      return fonts;
+   }
 
    public int[] getFontPoints() {
       return fontPoints;
