@@ -10,6 +10,7 @@ import java.io.InputStream;
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.byteobjects.src4.ctx.BOCtx;
 import pasa.cbentley.byteobjects.src4.ctx.IConfigBO;
+import pasa.cbentley.core.j2se.ctx.J2seCtx;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.framework.coredraw.j2se.engine.FontCustomizerJ2SE;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
@@ -34,11 +35,15 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
  */
 public abstract class CoreDrawJ2seCtx extends CoreDrawCtx {
 
-   private final IConfigCoreDrawJ2se configDrawJ2se;
+   protected final J2seCtx j2c;
 
-   public CoreDrawJ2seCtx(IConfigCoreDrawJ2se configDraw, BOCtx boc) {
+   public CoreDrawJ2seCtx(IConfigCoreDrawJ2se configDraw, J2seCtx j2c, BOCtx boc) {
       super(configDraw, boc);
-      this.configDrawJ2se = configDraw;
+      this.j2c = j2c;
+   }
+
+   public J2seCtx getJ2C() {
+      return j2c;
    }
 
    public int getFeatureInt(int featureID) {
@@ -46,9 +51,9 @@ public abstract class CoreDrawJ2seCtx extends CoreDrawCtx {
    }
 
    public IConfigCoreDrawJ2se getConfigCoreDrawJ2se() {
-      return configDrawJ2se;
+      return (IConfigCoreDrawJ2se) config;
    }
-   
+
    /**
     * Returns the {@link FontCustomizerJ2SE} that is set
     * @return {@link FontCustomizerJ2SE}
@@ -113,8 +118,7 @@ public abstract class CoreDrawJ2seCtx extends CoreDrawCtx {
       dc.root(this, CoreDrawJ2seCtx.class);
       toStringPrivate(dc);
       super.toString(dc.sup());
-      
-      dc.nlLvl(configDrawJ2se, "configDrawJ2se");
+
 
    }
 
