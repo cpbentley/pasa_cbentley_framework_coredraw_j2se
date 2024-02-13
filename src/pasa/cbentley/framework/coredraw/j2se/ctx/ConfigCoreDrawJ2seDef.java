@@ -18,21 +18,29 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
  */
 public class ConfigCoreDrawJ2seDef extends ConfigCoreDrawDef implements IConfigCoreDrawJ2se, ITechFont {
 
-   protected int[] fontPoints;
 
    public ConfigCoreDrawJ2seDef(UCtx uc) {
       super(uc);
-
-      fontPoints = new int[ITechFont.SIZE_X_NUM];
-      fontPoints[ITechFont.SIZE_1_TINY] = 8;
-      fontPoints[ITechFont.SIZE_2_SMALL] = 10;
-      fontPoints[ITechFont.SIZE_3_MEDIUM] = 12;
-      fontPoints[ITechFont.SIZE_4_LARGE] = 16;
-      fontPoints[ITechFont.SIZE_5_HUGE] = 22;
    }
 
-   public int[] getFontPoints() {
-      return fontPoints;
+   public int getFontPoint_01_Tiny() {
+      return 8;
+   }
+
+   public int getFontPoint_02_Small() {
+      return 10;
+   }
+
+   public int getFontPoint_03_Medium() {
+      return 12;
+   }
+
+   public int getFontPoint_04_Large() {
+      return 16;
+   }
+
+   public int getFontPoint_05_Huge() {
+      return 22;
    }
 
    public String getFontMonospace() {
@@ -46,20 +54,20 @@ public class ConfigCoreDrawJ2seDef extends ConfigCoreDrawDef implements IConfigC
    public String getFontProportional() {
       return "Segoe UI";
    }
-   
+
    //#mdebug
    public void toString(Dctx dc) {
       dc.root(this, ConfigCoreDrawJ2seDef.class, "@line5");
       toStringPrivate(dc);
       super.toString(dc.sup());
-      
+
       dc.appendVarWithNewLine("getFontMonospace()", getFontMonospace());
       dc.appendVarWithNewLine("getFontSystem()", getFontSystem());
       dc.appendVarWithNewLine("getFontProportional()", getFontProportional());
    }
 
    private void toStringPrivate(Dctx dc) {
-      
+
    }
 
    public void toString1Line(Dctx dc) {
@@ -69,6 +77,5 @@ public class ConfigCoreDrawJ2seDef extends ConfigCoreDrawDef implements IConfigC
    }
 
    //#enddebug
-   
 
 }

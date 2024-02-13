@@ -5,7 +5,6 @@
 package pasa.cbentley.framework.coredraw.j2se.ctx;
 
 import java.awt.Font;
-import java.io.InputStream;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.byteobjects.src4.ctx.BOCtx;
@@ -14,6 +13,7 @@ import pasa.cbentley.core.j2se.ctx.J2seCtx;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.framework.coredraw.j2se.engine.FontCustomizerJ2SE;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
+import pasa.cbentley.framework.coredraw.src4.ctx.IBOCtxSettingsCoreDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 
 /**
@@ -33,7 +33,7 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
  * @author Charles Bentley
  *
  */
-public abstract class CoreDrawJ2seCtx extends CoreDrawCtx {
+public abstract class CoreDrawJ2seCtx extends CoreDrawCtx  {
 
    protected final J2seCtx j2c;
 
