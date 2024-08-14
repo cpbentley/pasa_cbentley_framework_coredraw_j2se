@@ -2,29 +2,30 @@
  * (c) 2018-2020 Charles-Philip Bentley
  * This code is licensed under MIT license (see LICENSE.txt for details)
  */
-package pasa.cbentley.framework.coredraw.j2se.engine;
+package pasa.cbentley.framework.core.draw.j2se.engine;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 
 import pasa.cbentley.core.src4.logging.Dctx;
-import pasa.cbentley.framework.coredraw.j2se.ctx.CoreDrawJ2seCtx;
+import pasa.cbentley.framework.core.draw.j2se.ctx.CoreDrawJ2seCtx;
+import pasa.cbentley.framework.core.draw.j2se.ctx.IConfigCoreDrawJ2se;
 import pasa.cbentley.framework.coredraw.src4.ctx.IConfigCoreDraw;
 import pasa.cbentley.framework.coredraw.src4.ctx.ToStringStaticCoreDraw;
 import pasa.cbentley.framework.coredraw.src4.engine.FontFactoryAbstract;
 import pasa.cbentley.framework.coredraw.src4.engine.VisualState;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 
-public abstract class FontFactoryJ2SE extends FontFactoryAbstract {
+public abstract class FontFactoryJ2se extends FontFactoryAbstract {
    /**
     * In some frameworks like J2ME and android, font points are not used
     */
    protected int[] fontPoints = null;
 
-   public FontFactoryJ2SE(CoreDrawJ2seCtx jcac) {
-      super(jcac);
+   public FontFactoryJ2se(CoreDrawJ2seCtx cdc) {
+      super(cdc);
 
-      IConfigCoreDraw config = jcac.getConfigCoreDrawJ2se();
+      IConfigCoreDrawJ2se config = cdc.getConfigCoreDrawJ2se();
       fontPoints = new int[ITechFont.SIZE_X_NUM];
       fontPoints[SIZE_0_DEFAULT] = config.getFontPoint_03_Medium();
       fontPoints[SIZE_1_TINY] = config.getFontPoint_01_Tiny();
@@ -33,15 +34,8 @@ public abstract class FontFactoryJ2SE extends FontFactoryAbstract {
       fontPoints[SIZE_4_LARGE] = config.getFontPoint_04_Large();
       fontPoints[SIZE_5_HUGE] = config.getFontPoint_05_Huge();
 
-   }
+      fontPointsExtraShift = cdc.getConfigCoreDrawJ2se().getFontPointsExtraShift();
 
-   public String[] getFontNames() {
-      Font[] allFonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
-      String fonts[] = new String[allFonts.length];
-      for (int i = 0; i < fonts.length; i++) {
-         fonts[i] = allFonts[i].getFamily() + " : " + allFonts[i].getFontName();
-      }
-      return fonts;
    }
 
    /**
@@ -76,18 +70,40 @@ public abstract class FontFactoryJ2SE extends FontFactoryAbstract {
       return vs;
    }
 
-   public int getFontPoint(int size) {
-
-      //#debug
-      toDLog().pFlow("size=" + ToStringStaticCoreDraw.fontSize(size), null, FontFactoryJ2SE.class, "getFontPoint", LVL_04_FINER, true);
-
-      int points = fontPoints[size];
-      return points;
-   }
-
    public String[] getFontFamilies() {
       String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
       return fonts;
+   }
+
+   public String[] getFontNames() {
+      Font[] allFonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
+      String fonts[] = new String[allFonts.length];
+      for (int i = 0; i < fonts.length; i++) {
+         fonts[i] = allFonts[i].getFamily() + " : " + allFonts[i].getFontName();
+      }
+      return fonts;
+   }
+
+   /**
+    * 
+    */
+   public int getFontPoint(int size) {
+
+      if (size < -1) {
+         throw new IllegalArgumentException();
+      } else if (size > ITechFont.SIZE_X_NUM) {
+         //#debug
+         toDLog().pFlow("host size parameter. taking host size at face value -> points=" + size, null, FontFactoryJ2se.class, "getFontPoint@60", LVL_03_FINEST, true);
+
+         return size;
+      } else {
+         int points = fontPoints[size];
+
+         //#debug
+         toDLog().pFlow("for size=" + ToStringStaticCoreDraw.fontSize(size) + " points=" + points, null, FontFactoryJ2se.class, "getFontPoint@64", LVL_03_FINEST, true);
+
+         return points;
+      }
    }
 
    public int[] getFontPoints() {
@@ -96,7 +112,7 @@ public abstract class FontFactoryJ2SE extends FontFactoryAbstract {
 
    //#mdebug
    public void toString(Dctx dc) {
-      dc.root(this, FontFactoryJ2SE.class, "@line5");
+      dc.root(this, FontFactoryJ2se.class, "@line5");
       toStringPrivate(dc);
       super.toString(dc.sup());
       if (fontPoints == null) {
@@ -111,14 +127,14 @@ public abstract class FontFactoryJ2SE extends FontFactoryAbstract {
       }
    }
 
-   private void toStringPrivate(Dctx dc) {
-
-   }
-
    public void toString1Line(Dctx dc) {
-      dc.root1Line(this, FontFactoryJ2SE.class);
+      dc.root1Line(this, FontFactoryJ2se.class);
       toStringPrivate(dc);
       super.toString1Line(dc.sup1Line());
+   }
+
+   private void toStringPrivate(Dctx dc) {
+
    }
 
    //#enddebug

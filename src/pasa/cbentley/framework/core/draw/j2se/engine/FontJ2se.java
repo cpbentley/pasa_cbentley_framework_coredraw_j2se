@@ -2,14 +2,14 @@
  * (c) 2018-2020 Charles-Philip Bentley
  * This code is licensed under MIT license (see LICENSE.txt for details)
  */
-package pasa.cbentley.framework.coredraw.j2se.engine;
+package pasa.cbentley.framework.core.draw.j2se.engine;
 
 import pasa.cbentley.core.src4.logging.Dctx;
-import pasa.cbentley.framework.coredraw.j2se.ctx.CoreDrawJ2seCtx;
+import pasa.cbentley.framework.core.draw.j2se.ctx.CoreDrawJ2seCtx;
 import pasa.cbentley.framework.coredraw.src4.engine.FontAbstract;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 
-public abstract class FontJ2SE extends FontAbstract {
+public abstract class FontJ2se extends FontAbstract {
 
    protected String                fontNameInit;
 
@@ -19,7 +19,7 @@ public abstract class FontJ2SE extends FontAbstract {
 
    protected final CoreDrawJ2seCtx drwj2sec;
 
-   public FontJ2SE(CoreDrawJ2seCtx cdc) {
+   public FontJ2se(CoreDrawJ2seCtx cdc) {
       super(cdc);
       this.drwj2sec = cdc;
    }
@@ -31,7 +31,7 @@ public abstract class FontJ2SE extends FontAbstract {
     * @param style
     * @param size
     */
-   public FontJ2SE(CoreDrawJ2seCtx cdc, int face, int style, int size) {
+   public FontJ2se(CoreDrawJ2seCtx cdc, int face, int style, int size) {
       super(cdc);
       this.drwj2sec = cdc;
       this.face = face;
@@ -39,7 +39,7 @@ public abstract class FontJ2SE extends FontAbstract {
       this.size = size;
 
       //get the font from the customizer or by the default config
-      FontCustomizerJ2SE fc = cdc.getFontCustomizerJ2SE();
+      FontCustomizerJ2se fc = cdc.getFontCustomizerJ2SE();
 
       if (face == FACE_MONOSPACE) {
          fontNameInit = fc.getDefaultFontNameMono();
@@ -62,6 +62,10 @@ public abstract class FontJ2SE extends FontAbstract {
       return stringWidth("m") == stringWidth("i");
    }
 
+   public abstract int getAscent();
+
+   public abstract int getDescent();
+
    public int getWidthWeigh() {
       if (fontWidth != 0) {
          fontWidth = stringWidth("m");
@@ -71,7 +75,7 @@ public abstract class FontJ2SE extends FontAbstract {
 
    //#mdebug
    public void toString(Dctx dc) {
-      dc.root(this, FontJ2SE.class, "@line57");
+      dc.root(this, FontJ2se.class, "@line57");
       toStringPrivate(dc);
       super.toString(dc.sup());
 
@@ -98,7 +102,7 @@ public abstract class FontJ2SE extends FontAbstract {
    }
 
    public void toString1Line(Dctx dc) {
-      dc.root1Line(this, FontJ2SE.class);
+      dc.root1Line(this, FontJ2se.class);
       toStringPrivate(dc);
       super.toString1Line(dc.sup1Line());
    }

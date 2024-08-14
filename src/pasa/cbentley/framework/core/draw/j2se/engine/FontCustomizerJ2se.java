@@ -1,10 +1,10 @@
-package pasa.cbentley.framework.coredraw.j2se.engine;
+package pasa.cbentley.framework.core.draw.j2se.engine;
 
 import pasa.cbentley.core.src4.logging.Dctx;
-import pasa.cbentley.framework.coredraw.j2se.ctx.CoreDrawJ2seCtx;
+import pasa.cbentley.framework.core.draw.j2se.ctx.CoreDrawJ2seCtx;
 import pasa.cbentley.framework.coredraw.src4.engine.FontCustomizerAbstract;
 
-public abstract class FontCustomizerJ2SE extends FontCustomizerAbstract {
+public abstract class FontCustomizerJ2se extends FontCustomizerAbstract {
 
    private CoreDrawJ2seCtx cdjc;
 
@@ -13,7 +13,7 @@ public abstract class FontCustomizerJ2SE extends FontCustomizerAbstract {
     * @param cdc
     * @param factory
     */
-   public FontCustomizerJ2SE(CoreDrawJ2seCtx cdc, FontFactoryJ2SE factory) {
+   public FontCustomizerJ2se(CoreDrawJ2seCtx cdc, FontFactoryJ2se factory) {
       super(cdc, factory);
       cdjc = cdc;
    }
@@ -33,7 +33,7 @@ public abstract class FontCustomizerJ2SE extends FontCustomizerAbstract {
 
    //#mdebug
    public void toString(Dctx dc) {
-      dc.root(this, FontCustomizerJ2SE.class, "@line5");
+      dc.root(this, FontCustomizerJ2se.class, "@line5");
       toStringPrivate(dc);
       super.toString(dc.sup());
    }
@@ -43,7 +43,7 @@ public abstract class FontCustomizerJ2SE extends FontCustomizerAbstract {
    }
 
    public void toString1Line(Dctx dc) {
-      dc.root1Line(this, FontCustomizerJ2SE.class);
+      dc.root1Line(this, FontCustomizerJ2se.class);
       toStringPrivate(dc);
       super.toString1Line(dc.sup1Line());
    }
