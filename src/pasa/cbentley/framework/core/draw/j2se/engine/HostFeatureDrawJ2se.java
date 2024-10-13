@@ -37,6 +37,13 @@ public class HostFeatureDrawJ2se extends ObjectCDC implements IHostFeature, ITec
 
    public boolean isHostFeatureFactoryEnabled(int featureID) {
       switch (featureID) {
+         case SUP_ID_03_OPEN_GL:
+            return false;
+         case FEAT_02_ANTI_ALIAS:
+            //globally
+            return cdc.getBOCtxSettings().get1(CTX_COREDRAW_OFFSET_02_MODE_ALIAS1) != ITechGraphics.MODSET_APP_ALIAS_2_OFF;
+         case FEAT_01_ANTI_ALIAS_TEXT:
+            return cdc.getBOCtxSettings().get1(CTX_COREDRAW_OFFSET_03_MODE_TEXT_ALIAS1) != ITechGraphics.MODSET_APP_ALIAS_2_OFF;
          default:
             throw new IllegalArgumentException("Unknown FeatureID=" + featureID);
       }
@@ -44,13 +51,38 @@ public class HostFeatureDrawJ2se extends ObjectCDC implements IHostFeature, ITec
 
    public boolean isHostFeatureSupported(int featureID) {
       switch (featureID) {
+         case SUP_ID_03_OPEN_GL:
+            return false;
+         case FEAT_01_ANTI_ALIAS_TEXT:
+         case FEAT_02_ANTI_ALIAS:
+            return true;
          default:
             throw new IllegalArgumentException("Unknown FeatureID=" + featureID);
       }
    }
 
+   public boolean applyAlias(boolean b) {
+      //globally
+      int value = ITechGraphics.MODSET_APP_ALIAS_2_OFF;
+      cdc.getBOCtxSettings().set1(CTX_COREDRAW_OFFSET_02_MODE_ALIAS1, value);
+      return true;
+   }
+
+   public boolean applyAliasText(boolean b) {
+      //globally
+      int value = ITechGraphics.MODSET_APP_ALIAS_2_OFF;
+      cdc.getBOCtxSettings().set1(CTX_COREDRAW_OFFSET_03_MODE_TEXT_ALIAS1, value);
+      return true;
+   }
+
    public boolean setHostFeatureEnabled(int featureID, boolean b) {
       switch (featureID) {
+         case SUP_ID_03_OPEN_GL:
+            return false;
+         case FEAT_02_ANTI_ALIAS:
+            return applyAlias(b);
+         case FEAT_01_ANTI_ALIAS_TEXT:
+            return applyAliasText(b);
          default:
             throw new IllegalArgumentException("Unknown FeatureID=" + featureID);
       }

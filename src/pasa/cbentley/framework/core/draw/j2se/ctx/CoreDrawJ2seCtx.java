@@ -29,9 +29,9 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
  * <li>{@link Font#SANS_SERIF}
  * 
  * Compared to the 3 from {@link ITechFont}
- * <li> {@link ITechFont#FACE_MONOSPACE}
- * <li> {@link ITechFont#FACE_PROPORTIONAL}
- * <li> {@link ITechFont#FACE_SYSTEM}
+ * <li> {@link ITechFont#FACE_01_MONOSPACE}
+ * <li> {@link ITechFont#FACE_02_PROPORTIONAL}
+ * <li> {@link ITechFont#FACE_00_SYSTEM}
  * 
  * @author Charles Bentley
  *

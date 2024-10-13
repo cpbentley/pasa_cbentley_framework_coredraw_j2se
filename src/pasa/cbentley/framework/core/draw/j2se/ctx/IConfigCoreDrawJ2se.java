@@ -6,8 +6,14 @@ package pasa.cbentley.framework.core.draw.j2se.ctx;
 
 import pasa.cbentley.framework.coredraw.src4.ctx.IConfigCoreDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontFactory;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechGraphics;
 
+/**
+ * 
+ * @author Charles Bentley
+ *
+ */
 public interface IConfigCoreDrawJ2se extends IConfigCoreDraw {
 
    /**
@@ -61,10 +67,22 @@ public interface IConfigCoreDrawJ2se extends IConfigCoreDraw {
     */
    public int getAliasModeText();
 
+   /**
+    * The font name for {@link ITechFont#FACE_01_MONOSPACE}
+    * @return
+    */
    public String getFontMonospace();
 
+   /**
+    * The font name for {@link ITechFont#FACE_00_SYSTEM}
+    * @return
+    */
    public String getFontSystem();
 
+   /**
+    * The font name for {@link ITechFont#FACE_02_PROPORTIONAL}
+    * @return
+    */
    public String getFontProportional();
 
 }

@@ -11,17 +11,14 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 
 public abstract class FontJ2se extends FontAbstract {
 
-   protected String                fontNameInit;
+   protected String fontNameInit;
 
-   protected int                   points;
+   protected int    points;
 
-   protected int                   fontWidth = 0;
-
-   protected final CoreDrawJ2seCtx drwj2sec;
+   protected int    fontWidth = 0;
 
    public FontJ2se(CoreDrawJ2seCtx cdc) {
       super(cdc);
-      this.drwj2sec = cdc;
    }
 
    /**
@@ -33,30 +30,29 @@ public abstract class FontJ2se extends FontAbstract {
     */
    public FontJ2se(CoreDrawJ2seCtx cdc, int face, int style, int size) {
       super(cdc);
-      this.drwj2sec = cdc;
       this.face = face;
       this.style = style;
       this.size = size;
 
       //get the font from the customizer or by the default config
-      FontCustomizerJ2se fc = cdc.getFontCustomizerJ2SE();
+      FontCustomizerJ2se fontCustomizer = cdc.getFontCustomizerJ2SE();
 
-      if (face == FACE_MONOSPACE) {
-         fontNameInit = fc.getDefaultFontNameMono();
-      } else if (face == FACE_PROPORTIONAL) {
-         fontNameInit = fc.getDefaultFontNameProportional();
+      if (face == FACE_01_MONOSPACE) {
+         fontNameInit = fontCustomizer.getDefaultFontNameMono();
+      } else if (face == FACE_02_PROPORTIONAL) {
+         fontNameInit = fontCustomizer.getDefaultFontNameProportional();
       } else {
-         String def = fc.getDefaultFontNameSystem();
+         String def = fontCustomizer.getDefaultFontNameSystem();
          //custom font point that was set
-         fontNameInit = cac.getFontFactory().getFontFaceFromID(face, def);
+         fontNameInit = cdc.getFontFactory().getFontFaceFromID(face, def);
       }
 
-      points = cac.getFontFactory().getFontPoint(size);
-      points += cac.getFontFactory().getFontPointExtraShift();
+      points = cdc.getFontFactory().getFontPoint(size);
+      points += cdc.getFontFactory().getFontPointExtraShift();
    }
 
    public boolean isMonospace() {
-      if (face == ITechFont.FACE_MONOSPACE) {
+      if (face == ITechFont.FACE_01_MONOSPACE) {
          return true;
       }
       return stringWidth("m") == stringWidth("i");
@@ -75,7 +71,7 @@ public abstract class FontJ2se extends FontAbstract {
 
    //#mdebug
    public void toString(Dctx dc) {
-      dc.root(this, FontJ2se.class, "@line57");
+      dc.root(this, FontJ2se.class, 74);
       toStringPrivate(dc);
       super.toString(dc.sup());
 
@@ -102,7 +98,7 @@ public abstract class FontJ2se extends FontAbstract {
    }
 
    public void toString1Line(Dctx dc) {
-      dc.root1Line(this, FontJ2se.class);
+      dc.root1Line(this, FontJ2se.class,101);
       toStringPrivate(dc);
       super.toString1Line(dc.sup1Line());
    }
